@@ -47,12 +47,15 @@ sum_swab <- swab_data %>% group_by(Animal) %>%
             StudyVar=unique(StudyVar), 
             Strain=unique(Strain))
 
+
 sum_swab %>%
-  ggplot(aes(x=Strain, y=AULC)) +
+  ggplot(aes(x=Strain, y=AULC), fill=StudyVar) +
   geom_boxplot()+
-  geom_boxplot(aes(
-    fill=StudyVar
-  ))+ ggtitle("FS19 Fecal Swab AULC/Lineage") + xlab("Lineage")
+  geom_jitter(width= 0.22, size=3, aes(
+    color=StudyVar, fill=StudyVar
+  ))+ ggtitle("Fecal Swab AULC by Strain") + xlab("Strain") + labs(color="Trial", fill="Trial")
+
+
 
 
 summary(aov(data = sum_swab, formula = AULC~Strain))
