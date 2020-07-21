@@ -19,11 +19,13 @@ sum_shed <- shed_data %>% group_by(Animal) %>%
             Strain=unique(Strain))
 
 sum_shed %>%
-  ggplot(aes(x=Strain, y=AULC)) +
+  ggplot(aes(x=Strain, y=AULC), fill=StudyVar) +
   geom_boxplot()+
-  geom_boxplot(aes(
-   fill=StudyVar
-    ))+ ggtitle("FS19 Fecal Shedding AULC/Lineage") + xlab("Lineage")
+  geom_jitter(width= 0.22, size=3, aes(
+   color=StudyVar, fill=StudyVar
+    ))+ ggtitle("Fecal Shedding AULC by Strain") + xlab("Strain") + labs(color="Trial", fill="Trial")
+
+
 
 
 summary(aov(data = sum_shed, formula = AULC~Strain))
